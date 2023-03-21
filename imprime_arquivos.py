@@ -7,8 +7,12 @@ if len(sys.argv) < 2:
 for i in range(1, len(sys.argv)):
     try:
         with open(sys.argv[i], "r") as arquivo:
-            if os.path.isdir(sys.argv[i]):
-                raise IsADirectoryError
+            if not os.path.isfile(sys.argv[i]):
+                if os.path.exists(sys.argv[i]):
+                    if os.path.isdir(sys.argv[i]):
+                        raise IsADirectoryError
+                else:
+                    raise FileNotFoundError
             print(f" {sys.argv[i]} ".center(80, "="))
             print(arquivo.read())
     except FileNotFoundError:
@@ -16,7 +20,7 @@ for i in range(1, len(sys.argv)):
         print(f"Erro: arquivo '{sys.argv[i]}' não foi encontrado.")
     except IsADirectoryError:
         #print("".center(80, "="))
-        print(f"Erro: '{sys.argv[i]}' é um diretório/pasta.")
+        print(f"Erro: '{sys.argv[i]}' é um diretório/pasta.")        
     finally:
         print("".center(80, "="))
         #print("Programa encerrado.")
