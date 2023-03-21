@@ -5,4 +5,5 @@ if len(sys.argv) < 2:
     return 1
 for i in range(1, len(sys.argv)):
     with open("sys.argv[i]", "r") as arquivo:
+        print(f" {sys.argv[i]} ".center(80, "="))
         print(arquivo.read())
